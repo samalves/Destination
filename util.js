@@ -13,15 +13,31 @@ function init() {
   };
   
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(createMap, 
+    var addressConverter = new google.maps.Geocoder();
+    addressConverter.geocode({address:"30 applegate lane, providence, ri"}, geocodeHandler);
+
+    /*navigator.geolocation.getCurrentPosition(createMap, 
                                              geolocationErrorHandler, 
-                                             geolocationOptions); 
+                                             geolocationOptions); */
   }
   else {
     alert("I'm sorry, but for this application to work it will need an updated browser." +
           "\n\nTry again with the latest version of Google Chrome.");
   }
 }
+
+function geocodeHandler(geocoderResults, geocoderStatus) {
+
+  if (geocoderStatus == google.maps.GeocoderStatus.OK) {
+    destination = geocoderResults[0].geometry.location;
+    map = new google.maps.Map(document.getElementById('map_canvas'), {center: destination, zoom: 18, mapTypeId: google.maps.MapTypeId.ROADMAP});
+  }
+  else {
+    alert("Geocoder failed for the following reason: " + geocoderStatus);
+  }
+}
+
+
 
 
 function createMap(position) {
