@@ -63,9 +63,6 @@ function geolocationErrorHandler(error) {
   }
 
   alert (errorMsg + " Reload the page to try again.");
-
-  // for debugging purpose
-  //alert(error.message);
 }
 
 function displayPosition(position) {
