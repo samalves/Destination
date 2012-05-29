@@ -1,9 +1,9 @@
 check to see if the browser has geolocation service
-no? I can't work with this browser. Put a gray box where the map would be.
+no? Let the user know that they need the latest browser in order for the app to work
 yes? then move on.
 
 Ask the browser for current location and provide a time limit
-no? let the user know that the app can't continue
+no? let the user know that the app can't continue. Try again
 yes? move on.
 
 Now that I have the current position. Draw the map and center it on that position. I can place a marker on that position with the string "you are here". (side note: could I use canvas to draw a radius around the marker to indiciate the accuracy of the location?)
