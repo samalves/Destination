@@ -1,5 +1,18 @@
 Getting basic form to take input.
   Tue May 22, 2012 at JWU Library 
-    10:14am - 10:34am Considered whether to add places autocomplete. It's a neat feature, but it requires an api key & adds a new feature.
+    10:14am - 10:34am Considered and then rejected adding places autocomplete
     10:34am - 10:37am Set up logging text and write this.
-    10:38am - 
+    10:38am - 11:25am Lengthened the focus time to 40 minutes. Got a 'search' box I'm happy with. 
+    11:25am - 11:37am Break.
+    11:37am - 12:29pm I've got a basic button and a sentence describing what is expected of the user.
+    12:30pm - 12:41pm Break.
+    12:41pm -  1:36pm Trying to get map centered on destination.
+     1:37pm -  1:47pm Break.
+     1:48pm -  2:27pm Can't get my app to center itself on the destination. Was supposed to stopped at 2pm, 
+                      but didn't. 
+     2:27pm -  3:00pm Break. Surfed web.
+     3:00pm -  4:03pm Continued trying to get the map to center itself.
+  Wed May 23, 2012 at S. Prov Library
+    11:09am - 12:00pm Got it to center on my destination address. Yay!!!
+
+
