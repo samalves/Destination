@@ -13,18 +13,20 @@
       #map_canvas { height: 100% }
     </style>
 
-    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script src="util.js"></script>
 
   </head>
 
-  <body>
-    <!-- v1 -->
-    <!-- step 1: get the users current location -->
-    <!-- step 2: display the users current location -->
+  <body onload="initialize()">
+    <p>Search for an address or a landmark near your stop. Next, click the exact spot on the map you'll be getting off your ride. This app will automatically alert you as soon as you're withing 1/2 mile of that spot so you won't miss your stop.</p>
+
+    <form id="searchForm">
+      <label>Where to? <input type="text" id="destinationAddress" placeholder="destination address" size="50" autofocus></label>
+      <button onclick="convert2LatLng();return false">Search</button>
+    </form>
 
     <div id="map_canvas" style="width:90%; height:70%"></div>
-
 
   </body>
 </html>
