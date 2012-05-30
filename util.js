@@ -1,7 +1,7 @@
 /* Globals */
-var map;
-var currentLocation;
-var destination;
+var map;             // google.maps.Map object
+var currentPosition; // google.maps.latLng object
+var destination;     // google.maps.latLng object
 
 /* Determine if this browser implements geolocation. If so, go ahead and
  * create a map centerd on the current location.
@@ -28,11 +28,11 @@ function initialize() {
  */
 function createMap(position) {
 
-  currentLocation = position2LatLng(position);
+  currentPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
   var mapOptions = {
-    center: currentLocation,
-    zoom: 18,
+    center: currentPosition,
+    zoom: 15,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
 
@@ -42,32 +42,32 @@ function createMap(position) {
   var markerOptions = {
     animation: google.maps.Animation.DROP,
     map: map,
-    position: currentLocation,
+    position: currentPosition,
     title: "Current position",
     visible: true
   }
   var currenPositionMarker = new google.maps.Marker(markerOptions);
-
 }
 
-/* Convert the user's destination address to latitude and longitude via maps.google.Geocoder. */
+/* Convert the user's destination address to latitude and longitude via the Geocoder object. */
 function convert2LatLng() {
   var geocoder = new google.maps.Geocoder();
-  geocoder.geocode({address: document.getElementById("destinationAddress").value}, geocodeHandler);
+  geocoder.geocode({address: document.getElementById("destinationAddress").value}, setDestination);
 }
 
 /* Center the map on the destination coordinates
  *
- * input geocoderResults The result from calling maps.google.Geocoder.geocode().
- * input geocoderStatus  Indicates whether the call was a success or resulted in error.
+ * input results The result from calling maps.google.Geocoder.geocode().
+ * input status  Indicates whether the call was a success or resulted in error.
  */
-function geocodeHandler(geocoderResults, geocoderStatus) {
-  if (geocoderStatus == google.maps.GeocoderStatus.OK) {
-    destination = geocoderResults[0].geometry.location;
+function setDestination(results, status) {
+  if (status == google.maps.GeocoderStatus.OK) {
+    destination = results[0].geometry.location;
     map.setCenter(destination);
 
     //temporary hack to place a marker at destination. Deleted once testing is done.
     var markerOptions = {
+      icon: "stop.png",
       animation: google.maps.Animation.DROP,
       map: map,
       position: destination,
@@ -75,19 +75,31 @@ function geocodeHandler(geocoderResults, geocoderStatus) {
       visible: true
     }
     var currenPositionMarker = new google.maps.Marker(markerOptions);
+
+    drawCircle(destination);
   }
   else {
-    alert("Geocoder failed for the following reason: " + geocoderStatus);
+    alert("Geocoder failed for the following reason: " + status);
   }
 }
 
-/* Converts a Position object into a google.maps.LatLng object 
- *
- * input: posittion The Position object returned by the browser goelocation service.
- */
-function position2LatLng(position) {
-  return new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+// takes as input a google.maps.latLng object
+function drawCircle(latlng) {
+  var circleOptions = {
+    center: latlng,
+    clickable: false,
+    fillColor: "#FF0000",
+    fillOpacity: 0.35,
+    map: map,
+    radius: 804.67200,
+    strokeColor: "#FF0000",
+    strokeOpacity: 0.8,
+    strokeWeight: 2
+  }
+  var circle = new google.maps.Circle(circleOptions);
 }
+
+
 
 /* Message explaining why the application has not started. 
  * 
