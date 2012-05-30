@@ -1,4 +1,4 @@
-/* Globals */
+/* Global Variables */
 var map; // Reference our google.maps.Map object
 
 var currentPosition = new google.maps.Marker({
@@ -88,10 +88,51 @@ function drawDestination(results, status) {
     circle.setCenter(latLng);
     circle.setMap(map);
 
+    // Repeatedly request an update to the current position
+    navigator.geolocation.watchPosition(updateCurrentPosition, 
+                                        geolocationErrorHandler, 
+                                        {enableHighAccuracy: true, timeout: 10 * 1000, maximumAge: 0 });
+
   }
   else {
     alert("Geocoder failed for the following reason: " + status);
   }
+}
+
+function updateCurrentPosition(position) {
+  latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+  // Move the currentPosition marker to the new position
+  currentPosition.setPosition(latLng);
+
+  if (distance(currentPosition.getPosition(), destination.getPosition()) <= 0.5) {
+
+  }
+}
+
+/* Calculate the distance (in miles) between two coordinate points.
+ *
+ * Attribution: http://movable-type.co.uk/scripts/latlong.html
+ *
+ * parameter: start A google.maps.latLng object
+ * parameter: end   A google.maps.latLng object
+ */
+function distance(start, end) {
+
+  var R = 3959; // miles
+
+  // Convert to radians
+  var lat1 = start.lat() * Math.PI/180;
+  var lat2 = end.lat()   * Math.PI/180;
+  var lon1 = start.lng() * Math.PI/180;
+  var lon2 = end.lng()   * Math.PI/180;
+
+  var d = Math.acos(Math.sin(lat1) * Math.sin(lat2) + 
+                    Math.cos(lat1) * Math.cos(lat2) * 
+                    Math.cos(lon2-lon1)) * R;
+
+  return d;
+
 }
 
 /* Message explaining why the application has not started. 
@@ -116,7 +157,7 @@ function geolocationErrorHandler(error) {
       errorMsg = "Uknown error while determining your location.";
   }
 
-  alert (errorMsg + " Reload the page to try again.");
+  alert (errorMsg);
 }
 
 window.onload = initialize;
