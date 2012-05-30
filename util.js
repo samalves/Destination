@@ -70,7 +70,8 @@ function convert2LatLng() {
   geocoder.geocode({address: document.getElementById("destinationAddress").value}, drawDestination);
 }
 
-/* Center the map on the destination coordinates
+/* Center the map on the destination coordinates, then continuously update the map
+ * as the user's position changes.
  *
  * parameter: results The result from calling maps.google.Geocoder.geocode().
  * parameter: status  Indicates whether the call was a success or resulted in error.
@@ -78,6 +79,7 @@ function convert2LatLng() {
 function drawDestination(results, status) {
   if (status == google.maps.GeocoderStatus.OK) {
     latLng = results[0].geometry.location;
+
     map.setCenter(latLng);
 
     destination.setPosition(latLng);
