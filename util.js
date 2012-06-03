@@ -1,3 +1,11 @@
+/*
+ * Purpose: Alert the user when they're within 1/2 mile radius of their train stop
+ *
+ * Author: Sam Alves
+ * Email: salves1@my.ccri.edu
+ */
+
+
 /* Global Variables */
 var map; // Reference our google.maps.Map object
 
@@ -63,8 +71,7 @@ function createMap(position) {
   currentPosition.setMap(map);
 }
 
-/* Determine the destination's coordinates then draw it on the map. 
- */
+/* Determine the destination's coordinates then draw it on the map. */
 function convert2LatLng() {
   var geocoder = new google.maps.Geocoder();
   geocoder.geocode({address: document.getElementById("destinationAddress").value}, drawDestination);
@@ -99,14 +106,22 @@ function drawDestination(results, status) {
   }
 }
 
+/* Update the currentPosition marker with the current GPS location. 
+ *
+ * parameter: position the Position object returned by the watchPosition function,
+                       as specified by W3C.
+ */
 function updateCurrentPosition(position) {
   latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
   // Move the currentPosition marker to the new position
   currentPosition.setPosition(latLng);
 
-  if (distance(currentPosition.getPosition(), destination.getPosition()) <= 0.5) {
-
+  if (distance(destination.getPosition(), currentPosition.getPosition()) <= 0.5) {
+    // TODO: issues with audio element
+    //var alarm = document.getElementById('alarm');
+    //alarm.play();
+    alert("Your close to your stop!");
   }
 }
 
