@@ -9,7 +9,7 @@
 
     <style type="text/css">
       html { height: 100% }
-      body { height: 100%; margin: 0; padding; 0 }
+      body { height: 100%; margin: 0; padding: 0 }
       #map_canvas { height: 100% }
     </style>
 
@@ -24,7 +24,12 @@
       <button onclick="convert2LatLng();return false">Search</button>
     </form>
 
-    <div id="map_canvas" style="width:90%; height:70%"></div>
+    <div id="map_canvas" style="width:100%; height:100%"></div>
+
+    <audio id='alarm'>
+      <source src="factory_alarm.ogg" type='audio/ogg'></source>
+      <source src="factory_alarm.mp3" type='audio/mp3'></source>
+    </audio>
 
   </body>
 </html>
