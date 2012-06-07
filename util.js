@@ -16,7 +16,7 @@ var currentPosition = new google.maps.Marker({
 }); 
 
 var destination = new google.maps.Marker({
-  icon: "stop.png",
+  icon: "icons/stop.png",
   animation: google.maps.Animation.DROP,
   title: "Destination",
   visible: true
